@@ -323,7 +323,7 @@ Como usuario _médico_, desde el formulario "Creación de prescripciones" se pod
   - indicaciones (como String de texto libre, indicando, por ejemplo, nº de tomas por día, toma en ayunas o no, etc)
   - fecha de inicio de la _prescripción_ (que sera la fecha actual)
   - fecha de fin de la _prescripción_
-  - estado de la _prescripción_ [`ACTIVO`/`INACTIVO`], con el valor inicial a `ACTIVO`
+  - _prescripción_  activa [`true`|`false`]  , con el valor inicial a `true`
 * Junto con la creación de la _prescripción_ en la BD, al pulsar el botón "Crear prescripción" se registrará en la BD el conjunto de _recetas_ ("plan de recetas") que se emiten para que el _paciente_ vaya recogiendo las "cajas" del _medicamento_ en las fechas correspondientes (ver historia HU-M5)
 
 ### Detalles
