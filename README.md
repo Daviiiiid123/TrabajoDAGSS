@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## PREVIO
 ### Requisitos previos
 
@@ -98,3 +99,6 @@ Directamente, empleando el JAR autoejecutable
 mvn package
 java -jar target/recetas-0.1.jar
 ```
+=======
+# TrabajoDAGSS
+>>>>>>> 6e30af04b387b6ee08b86a549052f75852f16e1c
