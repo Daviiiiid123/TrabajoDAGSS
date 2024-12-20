@@ -20,13 +20,13 @@ import org.springframework.http.MediaType;
 
 
 @RestController
-@RequestMapping(path = "/api/centrosalud", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/centrosalud", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CentroSaludController {
 
     @Autowired
     private CentroSaludService centroSaludService;
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public CentroSalud crearCentroSalud(@RequestBody @Valid CentroSalud centroSalud) {
         // Lógica para crear un centro de salud
         this.centroSaludService.crearCentroSalud(centroSalud);
@@ -39,4 +39,43 @@ public class CentroSaludController {
         return centroSaludService.buscarPorNombre(nombre);
 
     }
+
+    @GetMapping(path = "/lista", consumes = MediaType.ALL_VALUE)
+    public List<CentroSalud> buscarTodos() {
+        // Lógica para buscar todos los centros de salud
+        return centroSaludService.buscarTodos();
+    }
+
+    @GetMapping("/id/{id}")
+    public CentroSalud buscarPorId(@PathVariable Long id) {
+        // Lógica para buscar un centro de salud por su ID
+        return centroSaludService.buscarPorId(id);
+    }
+
+    @GetMapping("/nombre/{nombre}")
+    public CentroSalud buscarPorNombre(@PathVariable String nombre) {
+        // Lógica para buscar un centro de salud por su nombre
+        return centroSaludService.buscarPorNombreExacto(nombre);
+    }
+
+    @GetMapping("/direccion/{direccion}")
+    public List<CentroSalud> buscarPorDireccion(@PathVariable String direccion) {
+        // Lógica para buscar un centro de salud por su dirección
+        return centroSaludService.buscarPorDireccion(direccion);
+    }
+
+    @GetMapping("/telefono/{telefono}")
+    public CentroSalud buscarPorTelefono(@PathVariable String telefono) {
+        // Lógica para buscar un centro de salud por su teléfono
+        return centroSaludService.buscarPorTelefono(telefono);
+
+    }
+
+    @GetMapping("/email/{email}")
+    public CentroSalud buscarPorEmail(@PathVariable String email) {
+        // Lógica para buscar un centro de salud por su email
+        return centroSaludService.buscarPorEmail(email);
+    }
+
+
 }
