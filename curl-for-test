@@ -1,0 +1,41 @@
+-d '{
+           "nombre": "Centro de Salud Ejemplo",
+           "direccion": "Calle Ejemplo 123",
+           "telefono": "123456789",
+           "email": "ejemplo@centrosalud.com",
+           "activo": true
+         }'
+  155  curl localhost:8080/pacientes
+  156  curl -X GET http://localhost:8080/api/centrosalud/Centro%20de%20Salud%20Ejemplo      -H "Content-Type: application/json"
+  157  curl -X POST http://localhost:8080/api/centrosalud      -H "Content-Type: application/json"      -d '{
+           "nombre": "Centro de Salud Pedro Sanchez",
+           "direccion": "Calle Ejemplo 123",
+           "telefono": "123456789",
+           "email": "ejemplo@centrosalud.com",
+           "activo": true
+         }'
+  158  curl -X POST http://localhost:8080/api/centrosalud      -H "Content-Type: application/json"      -d '{
+           "nombre": "Centro de Salud Picos de Europa",
+           "direccion": "Calle Ejemplo 123",
+           "telefono": "123456789",
+           "email": "ejemplo@centrosalud.com",
+           "activo": true
+         }'
+  159  curl -X POST http://localhost:8080/api/centrosalud      -H "Content-Type: application/json"      -d '{
+           "nombre": "Centro de Salud Andorra La Vella",
+           "direccion": "Calle Ejemplo 123",
+           "telefono": "123456789",
+           "email": "ejemplo@centrosalud.com",
+           "activo": true
+         }'
+  160  curl -X POST http://localhost:8080/api/centrosalud      -H "Content-Type: application/json"      -d '{
+           "nombre": "El Rubius International Health Center",
+           "direccion": "Calle Ejemplo 123",
+           "telefono": "123456789",
+           "email": "youtubersandorra@centrosalud.com",
+           "activo": true
+         }'
+  161  curl -X GET http://localhost:8080/api/centrosalud/Centro%20de%20Salud      -H "Content-Type: application/json"
+
+  curl localhost:8080/centroSaluds
+

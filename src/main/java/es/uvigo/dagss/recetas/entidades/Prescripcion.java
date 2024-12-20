@@ -2,7 +2,7 @@ package es.uvigo.dagss.recetas.entidades;
 
 import jakarta.persistence.Entity;
 
-@Entity
+//@Entity
 public class Prescripcion {
 
 }
