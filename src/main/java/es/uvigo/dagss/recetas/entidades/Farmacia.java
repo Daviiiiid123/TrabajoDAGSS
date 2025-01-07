@@ -1,29 +1,48 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.TableGenerator;
 
 @Entity
 @DiscriminatorValue(value = "FARMACIA")
 public class Farmacia extends Usuario {
 
-    // Anadir atributos propios
+    @Id
+    @TableGenerator(name = "FARMACIA_GEN", table = "GENERATOR_TABLE", pkColumnName = "GEN_KEY", valueColumnName = "GEN_VALUE", pkColumnValue = "FARMACIA_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "FARMACIA_GEN")
+    private Long id;
 
+    @Column(name = "NOMBRE", length = 50, nullable = false)
     private String nombre;
 
+    @Column(name = "DIRECCION", length = 100, nullable = false)
     private String direccion;
 
+    @Column(name = "TELEFONO", length = 15, nullable = false)
     private String telefono;
 
+    @Column(name = "EMAIL", length = 50, nullable = false)
     private String email;
 
+    @Column(name = "NOMBRE_FARMACEUTICO", length = 50, nullable = false)
     private String nombreFarmaceutico;
 
+    @Column(name = "APELLIDOS_FARMACEUTICO", length = 50, nullable = false)
     private String apellidosFarmaceutico;
 
+    @Column(name = "DNI", length = 9, nullable = false)
     private String DNI;
 
+    @Column(name = "NUMERO_COLEGIADO", length = 20, nullable = false)
     private String numeroColegiado;
+
+    private String login;
+    private String password;
 
     public Farmacia() {
         super(TipoUsuario.FARMACIA);
@@ -80,4 +99,115 @@ public class Farmacia extends Usuario {
         }
         return valido;
     }
+
+    //Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        if(validarTelefono(telefono)){
+            this.telefono = telefono;
+        }
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        if(validarEmail(email)){
+            this.email = email;
+        }
+    }
+
+    public String getNombreFarmaceutico() {
+        return nombreFarmaceutico;
+    }
+
+    public void setNombreFarmaceutico(String nombreFarmaceutico) {
+        this.nombreFarmaceutico = nombreFarmaceutico;
+    }
+
+    public String getApellidosFarmaceutico() {
+        return apellidosFarmaceutico;
+    }
+
+    public void setApellidosFarmaceutico(String apellidosFarmaceutico) {
+        this.apellidosFarmaceutico = apellidosFarmaceutico;
+    }
+
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        if(validarDNI(DNI)){
+        this.DNI = DNI;
+        }
+    }
+
+    public String getNumeroColegiado() {
+        return numeroColegiado;
+    }
+
+    public void setNumeroColegiado(String numeroColegiado) {
+        this.numeroColegiado = numeroColegiado;
+    }
+
+    //toString
+    @Override
+    public String toString() {
+        return "Farmacia{" + "id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", nombreFarmaceutico=" + nombreFarmaceutico + ", apellidosFarmaceutico=" + apellidosFarmaceutico + ", DNI=" + DNI + ", numeroColegiado=" + numeroColegiado + '}';
+    }
+
+    //Equals y HashCode
+    @Override
+    public int hashCode() {
+        if (this.id != null) {
+            return this.id.hashCode();
+        }
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Farmacia other = (Farmacia) obj;
+        if (this.id != null) {
+            return this.id.equals(other.id);
+        }
+        return super.equals(obj);
+    }
+    
 }
