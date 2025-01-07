@@ -1,46 +1,42 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.TableGenerator;
 
-//@Entity
+@Entity
 public class Medicamento {
     //Identificador unico del medicamento
     @Id
+    @TableGenerator(name = "MEDICAMENTO_GEN", table = "GENERATOR_TABLE", pkColumnName = "GEN_KEY", valueColumnName = "GEN_VALUE", pkColumnValue = "MEDICAMENTO_ID", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "MEDICAMENTO_GEN")
     private Long id;
 
     //Nombre comercial del medicamento
-    @Column(name = "NOMBRE_COMERCIAL", length = 30, nullable = false)
     private String nombreComercial;
 
     //Principio activo del medicamento
-    @Column(name = "PRINCIPIO_ACTIVO", length = 50, nullable = false)
     private String principioActivo;
 
     //Familia del medicamento
-    @Column(name = "FAMILIA", length = 50, nullable = false)
     private String familia;
 
     //Numero de dosis por envase
-    @Column(name = "DOSIS", length = 50, nullable = false)
     private int dosis;
 
     //Cantidad de existencias del medicamento
-    @Column(name = "EXISTENCIAS", length = 50, nullable = false)
     private int existencias;
 
     //Booleano que indica si el medicamento está activo
-    @Column(name = "ACTIVO", length = 50, nullable = false)
     private boolean activo;
 
     //(1,1) Prescripcion preescribe (1,N) Medicamento
-    @ManyToOne
-    @JoinColumn(name = "PRESCRIPCION_ID", nullable = false)
+    @ManyToOne(targetEntity = Prescripcion.class)
     private Prescripcion prescripcion;
 
 

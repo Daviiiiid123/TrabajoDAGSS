@@ -18,23 +18,18 @@ import jakarta.persistence.TableGenerator;
 public class CentroSalud {
 
     @Id
-    @TableGenerator(name = "USUARIO_GEN", table = "USUARIO_GEN", pkColumnName = "GEN_KEY", valueColumnName = "GEN_VAL", allocationSize = 1)           
+    @TableGenerator(name = "USUARIO_GEN", table = "USUARIO_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)           
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "USUARIO_GEN")
     private Long id;
 
-    @Column(name = "NOMBRE", length = 100, nullable = false)
     private String nombre;
 
-    @Column(name = "DIRECCION", length = 200, nullable = false)
     private String direccion;
 
-    @Column(name = "TELEFONO", length = 15, nullable = false)
     private String telefono;
 
-    @Column(name = "ACTIVO", nullable = false)
     private boolean activo;
 
-    @Column(name = "EMAIL", length = 100, nullable = false)
     private String email;
 
     //(1,N) CentroSalud es gestionado por (1,N) Administrador
@@ -46,12 +41,10 @@ public class CentroSalud {
 
     //(1,N) CentroSalud tiene (1,1) Medico
     @ManyToOne(targetEntity = Medico.class)
-    @JoinColumn(name = "MEDICO_ID")
     private Medico medico;
 
     //(1,1) CentroSalud tiene (1,N) Paciente
     @OneToMany(targetEntity = Paciente.class)
-    @JoinColumn(name = "CENTROSALUD_ID")
     private List<Paciente> pacientes;
     
 

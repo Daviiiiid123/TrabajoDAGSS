@@ -17,32 +17,22 @@ public class Farmacia extends Usuario {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "FARMACIA_GEN")
     private Long id;
 
-    @Column(name = "NOMBRE", length = 50, nullable = false)
     private String nombre;
 
-    @Column(name = "DIRECCION", length = 100, nullable = false)
     private String direccion;
 
-    @Column(name = "TELEFONO", length = 15, nullable = false)
     private String telefono;
 
-    @Column(name = "EMAIL", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "NOMBRE_FARMACEUTICO", length = 50, nullable = false)
     private String nombreFarmaceutico;
 
-    @Column(name = "APELLIDOS_FARMACEUTICO", length = 50, nullable = false)
     private String apellidosFarmaceutico;
 
-    @Column(name = "DNI", length = 9, nullable = false)
     private String DNI;
 
-    @Column(name = "NUMERO_COLEGIADO", length = 20, nullable = false)
     private String numeroColegiado;
 
-    private String login;
-    private String password;
 
     public Farmacia() {
         super(TipoUsuario.FARMACIA);
