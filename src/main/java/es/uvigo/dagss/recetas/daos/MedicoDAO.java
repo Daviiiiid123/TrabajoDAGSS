@@ -10,5 +10,10 @@ public interface MedicoDAO extends JpaRepository<Medico, Long> {
     Medico findByNumeroColegiado(String numeroColegiado);
     Medico findByDNI(String dni);
     List<Medico> findByActivoTrue();
+    void deleteByNombre(String nombre);
+    Medico findByTelefono(String telefono);
+    Medico findByNombre(String nombre);
+    Medico findByEmail(String email);
+    List<Medico> findByNombreContains(String nombre);
     
 }

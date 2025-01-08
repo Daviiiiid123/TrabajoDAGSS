@@ -15,4 +15,6 @@ public interface FarmaciaDAO extends JpaRepository<Farmacia, Long> {
     List<Farmacia> findByActivoTrue();
     List<CentroSalud> findByNombreContains(String nombre);
     List<CentroSalud> findByDireccionContains(String direccion);
+    Farmacia findByNumeroColegiado(String numeroColegiado);
+    void deleteByNombre(String nombre);
 }

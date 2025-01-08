@@ -1,7 +1,11 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,19 +36,14 @@ public class CentroSalud {
 
     private String email;
 
-    //(1,N) CentroSalud es gestionado por (1,N) Administrador
-    @ManyToMany(targetEntity = Administrador.class)
-    @JoinTable(name = "ADMINISTRADOR_CENTROSALUD",
-            joinColumns = @JoinColumn(name = "CENTROSALUD_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ADMINISTRADOR_ID"))   
-    private List<Administrador> administradores;
+    
 
     //(1,N) CentroSalud tiene (1,1) Medico
     @ManyToOne(targetEntity = Medico.class)
-    private Medico medico;
+    private List<Medico> medico;
 
     //(1,1) CentroSalud tiene (1,N) Paciente
-    @OneToMany(targetEntity = Paciente.class)
+    @OneToMany(targetEntity = Paciente.class, mappedBy = "centroSalud")
     private List<Paciente> pacientes;
     
 
@@ -164,6 +163,10 @@ public class CentroSalud {
             return this.id.equals(other.getId());
         }
         return super.equals(obj);
+    }
+
+    public List<Paciente> getPacientes() {
+        return pacientes;
     }
 
 

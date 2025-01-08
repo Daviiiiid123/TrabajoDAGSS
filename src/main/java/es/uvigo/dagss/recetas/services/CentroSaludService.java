@@ -62,6 +62,14 @@ public class CentroSaludService {
         return centroSaludDAO.findByActivoTrue();
     }
 
+    public void eliminarCentroSalud(Long id) {
+        centroSaludDAO.deleteById(id);
+    }
+
+    public void eliminarCentroSalud(String nombre) {
+        centroSaludDAO.deleteByNombre(nombre);
+    }
+
 
 
 

@@ -16,5 +16,6 @@ public interface CentroSaludDAO extends JpaRepository<CentroSalud, Long> {
     List<CentroSalud> findByActivoTrue();
     List<CentroSalud> findByNombreContains(String nombre);
     List<CentroSalud> findByDireccionContains(String direccion);
+    void deleteByNombre(String nombre);
 
 }
