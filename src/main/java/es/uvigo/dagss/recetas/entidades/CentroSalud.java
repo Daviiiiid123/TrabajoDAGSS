@@ -35,16 +35,6 @@ public class CentroSalud {
     private boolean activo;
 
     private String email;
-
-    
-
-    //(1,N) CentroSalud tiene (1,1) Medico
-    @ManyToOne(targetEntity = Medico.class)
-    private List<Medico> medico;
-
-    //(1,1) CentroSalud tiene (1,N) Paciente
-    @OneToMany(targetEntity = Paciente.class, mappedBy = "centroSalud")
-    private List<Paciente> pacientes;
     
 
 
@@ -163,10 +153,6 @@ public class CentroSalud {
             return this.id.equals(other.getId());
         }
         return super.equals(obj);
-    }
-
-    public List<Paciente> getPacientes() {
-        return pacientes;
     }
 
 

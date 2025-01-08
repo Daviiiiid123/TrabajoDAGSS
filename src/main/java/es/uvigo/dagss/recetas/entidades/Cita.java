@@ -31,26 +31,21 @@ public class Cita implements Serializable {
 
     //Paciente citado
     @ManyToOne //Una cita tiene un unico paciente
-    @JoinColumn(name = "PACIENTE_ID", nullable = false)
     private Paciente pacienteCitado;
 
     //Medico que atiende
     @ManyToOne //Una cita tiene un unico medico
-    @JoinColumn(name = "MEDICO_ID", nullable = true) //Una cita puede no existir
     private Medico medicoAtiende;
 
     //Fecha y hora de la cita
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "FECHA_HORA", length = 20)
     private Date fechaHora;
 
     //estado (PLANIFICADA, ANULADA, COMPLETADA, AUSENTE)
     @Enumerated(EnumType.STRING)
-    @Column(name = "ESTADO", length = 20)
     private EstadoCita estadoCita;
 
     //Duracion en minutos
-    @Column(name = "DURACION")
     private int duracion;
 
 //Constructor vacio porque es necesario para JPA

@@ -21,6 +21,8 @@ public class Medico extends Usuario {
 
     private String DNI;
 
+    private CentroSalud centroSalud;
+
 
     
     public Medico() {
@@ -137,6 +139,14 @@ public class Medico extends Usuario {
             valido = true;
         }
         return valido;
+    }
+
+    public CentroSalud getCentroSalud() {
+        return centroSalud;
+    }
+
+    public void setCentroSalud(CentroSalud centroSalud) {
+        this.centroSalud = centroSalud;
     }
 
 
