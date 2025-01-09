@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.uvigo.dagss.recetas.daos.RecetaDAO;
+import es.uvigo.dagss.recetas.entidades.EstadoCita;
 import es.uvigo.dagss.recetas.entidades.Farmacia;
 import es.uvigo.dagss.recetas.entidades.Receta;
 
@@ -34,17 +35,10 @@ public class RecetaService {
         return recetaDAO.findAll();
     }
 
-    public Receta buscarPorNombre(String nombre) {
-        return recetaDAO.findByNombre(nombre);
+    public Receta buscarPlanificada() {
+        return recetaDAO.findByEstado(EstadoCita.PLANIFICADA);
     }
 
-    public Receta buscarActiva() {
-        return recetaDAO.findByActivoTrue();
-    }
-
-    public void eliminarPorNombre(String nombre) {
-        recetaDAO.deleteByNombre(nombre);
-    }
 
     public Receta buscarPorFarmaciaServidora(Farmacia farmacia) {
         return recetaDAO.findByFarmaciaServidora(farmacia);

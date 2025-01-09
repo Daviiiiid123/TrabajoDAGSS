@@ -35,10 +35,7 @@ public class CitaService {
         return citaDAO.findById(id);
     }
 
-    public Cita buscarPorFecha(String fecha) {
-        return citaDAO.findByFecha(fecha);
-    }
-
+ 
     public List<Cita> listarTodas() {
         return citaDAO.findAll();
     }

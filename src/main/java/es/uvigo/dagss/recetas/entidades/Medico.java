@@ -2,6 +2,7 @@ package es.uvigo.dagss.recetas.entidades;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue(value = "MEDICO")
@@ -21,6 +22,7 @@ public class Medico extends Usuario {
 
     private String DNI;
 
+    @ManyToOne(targetEntity = CentroSalud.class)
     private CentroSalud centroSalud;
 
 

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.uvigo.dagss.recetas.daos.PrescripcionDAO;
+import es.uvigo.dagss.recetas.entidades.Medicamento;
+import es.uvigo.dagss.recetas.entidades.Medico;
+import es.uvigo.dagss.recetas.entidades.Paciente;
 import es.uvigo.dagss.recetas.entidades.Prescripcion;
 
 @Service
@@ -30,15 +33,15 @@ public class PrescripcionService {
         return prescripcionDAO.save(prescripcion);
     }
 
-    public Prescripcion buscarPorMedico(String medico) {
+    public Prescripcion buscarPorMedico(Medico medico) {
         return prescripcionDAO.findByMedico(medico);
     }
 
-    public Prescripcion buscarPorPaciente(String paciente) {
+    public Prescripcion buscarPorPaciente(Paciente paciente) {
         return prescripcionDAO.findByPaciente(paciente);
     }
 
-    public Prescripcion buscarPorMedicamento(String medicamento) {
+    public Prescripcion buscarPorMedicamento(Medicamento medicamento) {
         return prescripcionDAO.findByMedicamento(medicamento);
     }
 
