@@ -1,4 +1,4 @@
-package es.uvigo.dagss.recetas.entidades;
+/*package es.uvigo.dagss.recetas.entidades;
 
 import java.util.List;
 
@@ -59,4 +59,4 @@ public class PlanRecetas {
 
 
 
-}
+}*/
