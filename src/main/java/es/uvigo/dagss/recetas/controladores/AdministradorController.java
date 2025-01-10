@@ -43,8 +43,12 @@ public class AdministradorController {
         administradorService.actualizarAdministrador(administrador);
     }
 
+    // Cambiado para establecer activo a false en lugar de eliminar la entidad
+    // HU-A2: Eliminación lógica estableciendo activo a false
     @DeleteMapping("/{id}")
     public void eliminarAdministrador(@PathVariable Long id) {
-        administradorService.eliminarAdministrador(administradorService.buscarPorId(id));
+        Administrador administrador = administradorService.buscarPorId(id);
+        administrador.setActivo(false);
+        administradorService.actualizarAdministrador(administrador);
     }
 }

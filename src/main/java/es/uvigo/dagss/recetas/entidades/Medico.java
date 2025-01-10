@@ -25,6 +25,9 @@ public class Medico extends Usuario {
     @ManyToOne(targetEntity = CentroSalud.class)
     private CentroSalud centroSalud;
 
+    // Añadido para permitir la eliminación lógica
+    // HU-A4: Eliminación lógica estableciendo activo a false
+    private Boolean activo = true;
 
     
     public Medico() {
@@ -151,5 +154,12 @@ public class Medico extends Usuario {
         this.centroSalud = centroSalud;
     }
 
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
 
 }

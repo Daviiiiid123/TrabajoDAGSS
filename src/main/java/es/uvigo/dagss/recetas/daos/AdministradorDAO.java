@@ -6,6 +6,4 @@ import es.uvigo.dagss.recetas.entidades.Administrador;
 
 public interface AdministradorDAO extends JpaRepository<Administrador, Long> {
     Administrador findByEmail(String email);
-
-
 }

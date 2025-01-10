@@ -22,8 +22,11 @@ public class MedicoService {
         medicoDAO.save(medico);
     }
 
+    // Cambiado para establecer activo a false en lugar de eliminar la entidad
+    // HU-A4: Eliminación lógica estableciendo activo a false
     public void eliminarMedico(Medico medico) {
-        medicoDAO.delete(medico);
+        medico.setActivo(false);
+        medicoDAO.save(medico);
     }
 
     public void actualizarMedico(Medico medico) {
@@ -66,12 +69,24 @@ public class MedicoService {
         return medicoDAO.findByActivoTrue();
     }
 
+    // Cambiado para establecer activo a false en lugar de eliminar la entidad
+    // HU-A4: Eliminación lógica estableciendo activo a false
     public void eliminarMedico(Long id) {
-        medicoDAO.deleteById(id);
+        Medico medico = medicoDAO.findById(id).orElse(null);
+        if (medico != null) {
+            medico.setActivo(false);
+            medicoDAO.save(medico);
+        }
     }
 
+    // Cambiado para establecer activo a false en lugar de eliminar la entidad
+    // HU-A4: Eliminación lógica estableciendo activo a false
     public void eliminarMedico(String nombre) {
-        medicoDAO.deleteByNombre(nombre);
+        Medico medico = medicoDAO.findByNombre(nombre);
+        if (medico != null) {
+            medico.setActivo(false);
+            medicoDAO.save(medico);
+        }
     }
 
     
