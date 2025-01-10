@@ -68,4 +68,9 @@ public class FarmaciaService {
         farmaciaDAO.deleteByNombre(nombre);
     }
 
+    // HU-A6: Añadir método para encontrar farmacias activas
+    public List<Farmacia> findActiveFarmacias() {
+        return farmaciaDAO.findByActivoTrue();
+    }
+
 }

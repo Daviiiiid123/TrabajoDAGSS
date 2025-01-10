@@ -31,6 +31,8 @@ public class Administrador extends Usuario {
     private String login;
     private String password;
 
+    // Añadido para permitir la eliminación lógica
+    // HU-A2: Eliminación lógica estableciendo activo a false
     private Boolean activo = true;
 
     //(1,N) Administrador gestiona (1,N) CentroSalud

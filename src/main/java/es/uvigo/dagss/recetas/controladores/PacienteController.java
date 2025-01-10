@@ -1,10 +1,9 @@
 package es.uvigo.dagss.recetas.controladores;
 
-import org.springframework.http.MediaType;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,9 +54,10 @@ public class PacienteController {
         return this.pacienteService.findAllPacientes();
     }
 
-   
-
-
-
+    // HU-A5: Añadir endpoint para obtener pacientes activos
+    @GetMapping(path = "/activos", consumes = MediaType.ALL_VALUE)
+    public List<Paciente> buscarPacientesActivos() {
+        return this.pacienteService.findActivePacientes();
+    }
 
 }

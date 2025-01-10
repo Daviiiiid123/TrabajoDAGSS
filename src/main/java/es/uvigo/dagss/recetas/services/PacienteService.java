@@ -1,14 +1,14 @@
 package es.uvigo.dagss.recetas.services;
 
 
-import es.uvigo.dagss.recetas.daos.PacienteDAO;
-import es.uvigo.dagss.recetas.entidades.Paciente;
-
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import es.uvigo.dagss.recetas.daos.PacienteDAO;
+import es.uvigo.dagss.recetas.entidades.Paciente;
 
 
 @Service
@@ -41,5 +41,10 @@ public class PacienteService {
 
     public List<Paciente> findAllPacientes() {
         return pacienteDAO.findAll();
+    }
+
+    // HU-A5: Añadir método para encontrar pacientes activos
+    public List<Paciente> findActivePacientes() {
+        return pacienteDAO.findByActivoTrue();
     }
 }

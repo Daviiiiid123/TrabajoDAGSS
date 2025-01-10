@@ -84,6 +84,12 @@ public class FarmaciaController {
         farmaciaService.eliminarFarmaciaPorId(id);
     }
 
+    // HU-A6: Añadir endpoint para obtener farmacias activas
+    @GetMapping(path = "/activos", consumes = MediaType.ALL_VALUE)
+    public List<Farmacia> buscarFarmaciasActivas() {
+        return this.farmaciaService.findActiveFarmacias();
+    }
+
     
 
 }

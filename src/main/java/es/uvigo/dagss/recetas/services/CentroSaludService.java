@@ -9,7 +9,6 @@ import es.uvigo.dagss.recetas.daos.CentroSaludDAO;
 import es.uvigo.dagss.recetas.entidades.CentroSalud;
 
 @Service
-
 public class CentroSaludService {
 
     @Autowired
@@ -26,8 +25,11 @@ public class CentroSaludService {
         centroSaludDAO.save(centroSalud);
     }
 
+    // Cambiado para establecer activo a false en lugar de eliminar la entidad
+    // HU-A3: Eliminación lógica estableciendo activo a false
     public void eliminarCentroSalud(CentroSalud centroSalud) {
-        centroSaludDAO.delete(centroSalud);
+        centroSalud.setActivo(false);
+        centroSaludDAO.save(centroSalud);
     }
 
     public void actualizarCentroSalud(CentroSalud centroSalud) {
@@ -62,16 +64,23 @@ public class CentroSaludService {
         return centroSaludDAO.findByActivoTrue();
     }
 
+    // Cambiado para establecer activo a false en lugar de eliminar la entidad por ID
+    // HU-A3: Eliminación lógica estableciendo activo a false
     public void eliminarCentroSalud(Long id) {
-        centroSaludDAO.deleteById(id);
+        CentroSalud centroSalud = centroSaludDAO.findById(id).orElse(null);
+        if (centroSalud != null) {
+            centroSalud.setActivo(false);
+            centroSaludDAO.save(centroSalud);
+        }
     }
 
+    // Cambiado para establecer activo a false en lugar de eliminar la entidad por nombre
+    // HU-A3: Eliminación lógica estableciendo activo a false
     public void eliminarCentroSalud(String nombre) {
-        centroSaludDAO.deleteByNombre(nombre);
+        CentroSalud centroSalud = centroSaludDAO.findByNombre(nombre);
+        if (centroSalud != null) {
+            centroSalud.setActivo(false);
+            centroSaludDAO.save(centroSalud);
+        }
     }
-
-
-
-
-    
 }
