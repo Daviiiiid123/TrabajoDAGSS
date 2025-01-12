@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import es.uvigo.dagss.recetas.daos.CitaDAO;
 import es.uvigo.dagss.recetas.entidades.Cita;
+import es.uvigo.dagss.recetas.entidades.Medico;
 
 @Service
 
@@ -39,7 +40,10 @@ public class CitaService {
     public List<Cita> listarTodas() {
         return citaDAO.findAll();
     }
-
+    
+    public List<Cita> buscarPorMedico(Medico medico){
+        return citaDAO.findByMedico(medico);
+    }
 
 
 
