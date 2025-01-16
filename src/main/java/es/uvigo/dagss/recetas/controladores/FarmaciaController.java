@@ -3,6 +3,7 @@ package es.uvigo.dagss.recetas.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.uvigo.dagss.recetas.entidades.Farmacia;
 import es.uvigo.dagss.recetas.services.FarmaciaService;
@@ -34,11 +36,16 @@ public class FarmaciaController {
         this.farmaciaService.crearFarmacia(farmacia);
     }
 
-    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void actualizarFarmacia(@PathVariable Long id, @RequestBody @Valid Farmacia farmacia) {
+    @PutMapping
+    public void actualizarFarmacia(@RequestBody @Valid Farmacia farmacia) {
         // Lógica para actualizar una farmacia
-        farmacia.setId(id);
-        this.farmaciaService.actualizarFarmacia(farmacia);
+        if ( this.farmaciaService.buscarPorId(farmacia.getId()) != null ) {
+            this.farmaciaService.actualizarFarmacia(farmacia);
+        }else{
+            throw new ResponseStatusException(
+              HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }
     }
 
     @GetMapping("/{nombre}")

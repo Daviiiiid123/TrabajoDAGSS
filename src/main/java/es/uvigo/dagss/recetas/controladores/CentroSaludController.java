@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.uvigo.dagss.recetas.entidades.CentroSalud;
 import es.uvigo.dagss.recetas.services.CentroSaludService;
@@ -17,6 +18,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 
@@ -29,18 +31,22 @@ public class CentroSaludController {
     private CentroSaludService centroSaludService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public CentroSalud crearCentroSalud(@RequestBody @Valid CentroSalud centroSalud) {
+    public void crearCentroSalud(@RequestBody @Valid CentroSalud centroSalud) {
         // Lógica para crear un centro de salud
         this.centroSaludService.crearCentroSalud(centroSalud);
-        return null;
     }
 
-    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public CentroSalud actualizarCentroSalud(@PathVariable Long id, @RequestBody @Valid CentroSalud centroSalud) {
+    @PutMapping
+    public CentroSalud actualizarCentroSalud(@RequestBody CentroSalud centroSalud) {
         // Lógica para actualizar un centro de salud
-        centroSalud.setId(id);
-        this.centroSaludService.actualizarCentroSalud(centroSalud);
-        return centroSalud;
+        if (this.centroSaludService.buscarPorId(centroSalud.getId()) != null){
+            this.centroSaludService.actualizarCentroSalud(centroSalud);
+            return centroSalud;
+        }else{
+            throw new ResponseStatusException(
+              HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }
     }
 
     @GetMapping("/{nombre}")

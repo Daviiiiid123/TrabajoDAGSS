@@ -12,6 +12,7 @@ public interface PrescripcionDAO extends  JpaRepository<Prescripcion, Long> {
     Prescripcion findByPaciente(Paciente paciente);
     Prescripcion findByMedicamento(Medicamento medicamento);
     Prescripcion findByActivaTrue();
+    void findById();
     void deleteByMedico(Medico medico);
     void deleteByPaciente(Paciente paciente);
     void deleteByMedicamento(Medicamento medicamento);

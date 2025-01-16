@@ -3,6 +3,8 @@ package es.uvigo.dagss.recetas.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.uvigo.dagss.recetas.entidades.Administrador;
 import es.uvigo.dagss.recetas.services.AdministradorService;
@@ -18,7 +21,6 @@ import es.uvigo.dagss.recetas.services.AdministradorService;
 @RestController
 @RequestMapping("/api/administrador")
 public class AdministradorController {
-
     @Autowired
     private AdministradorService administradorService;
 
@@ -37,10 +39,15 @@ public class AdministradorController {
         administradorService.crearAdministrador(administrador);
     }
 
-    @PutMapping("/{id}")
-    public void actualizarAdministrador(@PathVariable Long id, @RequestBody Administrador administrador) {
-        administrador.setId(id); 
-        administradorService.actualizarAdministrador(administrador);
+    @PutMapping
+    public void actualizarAdministrador(@RequestBody Administrador administrador) {
+        if (administradorService.buscarPorId(administrador.getId()) != null){
+            administradorService.actualizarAdministrador(administrador);
+        }else{
+            throw new ResponseStatusException(
+              HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }
     }
 
     // Cambiado para establecer activo a false en lugar de eliminar la entidad
