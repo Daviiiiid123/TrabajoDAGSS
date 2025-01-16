@@ -1,5 +1,7 @@
 package es.uvigo.dagss.recetas.daos;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import es.uvigo.dagss.recetas.entidades.Medicamento;
@@ -12,7 +14,6 @@ public interface PrescripcionDAO extends  JpaRepository<Prescripcion, Long> {
     Prescripcion findByPaciente(Paciente paciente);
     Prescripcion findByMedicamento(Medicamento medicamento);
     Prescripcion findByActivaTrue();
-    void findById();
     void deleteByMedico(Medico medico);
     void deleteByPaciente(Paciente paciente);
     void deleteByMedicamento(Medicamento medicamento);
