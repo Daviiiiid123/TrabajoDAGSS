@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.uvigo.dagss.recetas.entidades.Farmacia;
+import es.uvigo.dagss.recetas.entidades.Receta;
 import es.uvigo.dagss.recetas.services.FarmaciaService;
+import es.uvigo.dagss.recetas.services.RecetaService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -24,6 +26,9 @@ public class FarmaciaController {
 
     @Autowired
     private FarmaciaService farmaciaService;
+
+    @Autowired
+    private RecetaService recetaService;
 
     public FarmaciaController() {
     }
@@ -88,6 +93,36 @@ public class FarmaciaController {
     @GetMapping(path = "/activos", consumes = MediaType.ALL_VALUE)
     public List<Farmacia> buscarFarmaciasActivas() {
         return this.farmaciaService.findActiveFarmacias();
+    }
+
+    // HU-F1: Endpoint para obtener el "Home" de una farmacia
+    @GetMapping(path = "/home/{id}", consumes = MediaType.ALL_VALUE)
+    public String obtenerHomeFarmacia(@PathVariable Long id) {
+        return this.farmaciaService.getFarmaciaHome(id);
+    }
+
+    // HU-F2: Endpoint para obtener las recetas planificadas de un paciente
+    @GetMapping(path = "/recetas/{pacienteId}", consumes = MediaType.ALL_VALUE)
+    public List<Receta> obtenerRecetasPlanificadas(@PathVariable Long pacienteId) {
+        return this.recetaService.getRecetasPlanificadas(pacienteId);
+    }
+
+    // HU-F3: Endpoint para anotar una receta como servida
+    @PutMapping(path = "/recetas/servir/{recetaId}/{farmaciaId}", consumes = MediaType.ALL_VALUE)
+    public Receta anotarRecetaServida(@PathVariable Long recetaId, @PathVariable Long farmaciaId) {
+        return this.recetaService.anotarRecetaServida(recetaId, farmaciaId);
+    }
+
+    // HU-F4: Endpoint para modificar las credenciales de acceso de una farmacia
+    @PutMapping(path = "/{id}/credenciales", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Farmacia modificarCredenciales(@PathVariable Long id, @RequestBody String nuevoPassword) {
+        return this.farmaciaService.modificarCredenciales(id, nuevoPassword);
+    }
+
+    // HU-F4: Endpoint para actualizar los datos básicos de una farmacia
+    @PutMapping(path = "/{id}/datos", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Farmacia actualizarDatosBasicos(@PathVariable Long id, @RequestBody Farmacia nuevosDatos) {
+        return this.farmaciaService.actualizarDatosBasicos(id, nuevosDatos);
     }
 
     

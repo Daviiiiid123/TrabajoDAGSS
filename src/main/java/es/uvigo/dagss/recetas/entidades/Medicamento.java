@@ -1,12 +1,9 @@
 package es.uvigo.dagss.recetas.entidades;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.TableGenerator;
 
 @Entity
@@ -35,9 +32,6 @@ public class Medicamento {
     //Booleano que indica si el medicamento está activo
     private boolean activo;
 
-    //(1,1) Prescripcion preescribe (1,N) Medicamento
-    @ManyToOne(targetEntity = Prescripcion.class)
-    private Prescripcion prescripcion;
 
 
     //Constructor vacio porque es necesario para JPA
@@ -114,28 +108,5 @@ public class Medicamento {
     public String toString() {
         return "Medicamento{" + "id=" + id + ", nombreComercial=" + nombreComercial + ", principioActivo=" + principioActivo + ", familia=" + familia + ", dosis=" + dosis + ", existencias=" + existencias + ", activo=" + activo + '}';
     }
-
-    //Metodo equals
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Medicamento other = (Medicamento) obj;
-        if (this.id != null) {
-            return this.id.equals(other.getId());
-        }
-        return this.nombreComercial.equals(other.getNombreComercial())
-                && this.principioActivo.equals(other.getPrincipioActivo())
-                && this.familia.equals(other.getFamilia())
-                && this.dosis == other.getDosis()
-                && this.existencias == other.getExistencias()
-                && this.activo == other.isActivo();
-    }
-
 
 }

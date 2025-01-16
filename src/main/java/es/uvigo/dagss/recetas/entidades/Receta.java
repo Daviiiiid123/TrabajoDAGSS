@@ -2,7 +2,6 @@ package es.uvigo.dagss.recetas.entidades;
 
 import java.util.Date;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,6 +27,10 @@ public class Receta {
     private Date fechaInicio;
     private Date fechaFin;
     private int cantidad;
+
+    public Long getId() {
+        return id;
+    }
     public enum Estado {
         PLANIFICADA, SERVIDA, ANULADA
     }

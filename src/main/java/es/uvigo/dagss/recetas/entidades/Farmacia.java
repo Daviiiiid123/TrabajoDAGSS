@@ -93,14 +93,7 @@ public class Farmacia extends Usuario {
         return valido;
     }
 
-    //Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
 
     public String getNombre() {
         return nombre;
@@ -172,14 +165,6 @@ public class Farmacia extends Usuario {
         this.numeroColegiado = numeroColegiado;
     }
 
-    // HU-A6: Añadir getter y setter para el atributo 'activo'
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
 
     //toString
     @Override

@@ -1,6 +1,7 @@
 package es.uvigo.dagss.recetas.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,6 +72,43 @@ public class FarmaciaService {
     // HU-A6: Añadir método para encontrar farmacias activas
     public List<Farmacia> findActiveFarmacias() {
         return farmaciaDAO.findByActivoTrue();
+    }
+
+    // HU-F1: Método para obtener el "Home" de una farmacia
+    public String getFarmaciaHome(Long farmaciaId) {
+        Optional<Farmacia> farmacia = farmaciaDAO.findById(farmaciaId);
+        if (farmacia.isPresent()) {
+            return "Home de Farmacia: " + farmacia.get().getNombre();
+        } else {
+            throw new RuntimeException("Farmacia no encontrada");
+        }
+    }
+
+    // HU-F4: Método para modificar las credenciales de acceso de una farmacia
+    public Farmacia modificarCredenciales(Long farmaciaId, String nuevoPassword) {
+        Optional<Farmacia> farmacia = farmaciaDAO.findById(farmaciaId);
+        if (farmacia.isPresent()) {
+            Farmacia farmaciaExistente = farmacia.get();
+            farmaciaExistente.setPassword(nuevoPassword);
+            return farmaciaDAO.save(farmaciaExistente);
+        } else {
+            throw new RuntimeException("Farmacia no encontrada");
+        }
+    }
+
+    // HU-F4: Método para actualizar los datos básicos de una farmacia
+    public Farmacia actualizarDatosBasicos(Long farmaciaId, Farmacia nuevosDatos) {
+        Optional<Farmacia> farmacia = farmaciaDAO.findById(farmaciaId);
+        if (farmacia.isPresent()) {
+            Farmacia farmaciaExistente = farmacia.get();
+            farmaciaExistente.setNombre(nuevosDatos.getNombre());
+            farmaciaExistente.setDireccion(nuevosDatos.getDireccion());
+            farmaciaExistente.setTelefono(nuevosDatos.getTelefono());
+            farmaciaExistente.setEmail(nuevosDatos.getEmail());
+            return farmaciaDAO.save(farmaciaExistente);
+        } else {
+            throw new RuntimeException("Farmacia no encontrada");
+        }
     }
 
 }
