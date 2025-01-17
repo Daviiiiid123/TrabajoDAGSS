@@ -22,9 +22,6 @@ public class Paciente extends Usuario {
 
     private String nombre;
 
-    // HU-A5: Add 'activo' attribute for logical deletion
-    private Boolean activo = true;
-
     @ManyToOne(targetEntity = CentroSalud.class)
     private CentroSalud centroSalud;
    
@@ -42,7 +39,7 @@ public class Paciente extends Usuario {
         this.NSS = NSS;
         this.email = email;
         this.nombre = nombre;
-        this.activo = true;
+        super.setActivo(true);
     }
 
     public String getTelefono() {
@@ -103,15 +100,7 @@ public class Paciente extends Usuario {
         }
     }
 
-    // HU-A5: Add getter and setter for 'activo' attribute
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
-
+   
     private boolean validarTelefono(String telefono){
         boolean valido = false;
         if(telefono.length() == 9){
