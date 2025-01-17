@@ -11,6 +11,7 @@ import es.uvigo.dagss.recetas.daos.CitaDAO;
 import es.uvigo.dagss.recetas.daos.MedicoDAO;
 import es.uvigo.dagss.recetas.daos.PacienteDAO;
 import es.uvigo.dagss.recetas.entidades.Cita;
+import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.entidades.EstadoCita;
 import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.entidades.Paciente;
@@ -51,6 +52,17 @@ public class CitaService {
     public List<Cita> listarTodas() {
         return citaDAO.findAll();
     }
+    
+    public List<Cita> buscarPorMedico(Medico medico){
+        return citaDAO.findByMedico(medico);
+    }
+
+
+
+
+    
+
+
 
     // HU-A7: Añadir método para anular citas
     public void anularCita(Long id) {
@@ -85,4 +97,5 @@ public class CitaService {
             throw new RuntimeException("Cita no encontrada");
         }
     }
+
 }

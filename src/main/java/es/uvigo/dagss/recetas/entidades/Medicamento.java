@@ -29,6 +29,17 @@ public class Medicamento {
     //Cantidad de existencias del medicamento
     private int existencias;
 
+    //Fabricante del medicamento
+    private String fabricante;
+
+    public String getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
+    }
+
     //Booleano que indica si el medicamento está activo
     private boolean activo;
 

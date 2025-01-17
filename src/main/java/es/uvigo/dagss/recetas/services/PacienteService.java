@@ -26,8 +26,6 @@ public class PacienteService {
     public PacienteService() {
     }
 
-
-
     public Paciente createPaciente(Paciente paciente) {
         return pacienteDAO.save(paciente);
     }
@@ -47,10 +45,11 @@ public class PacienteService {
     public List<Paciente> findAllPacientes() {
         return pacienteDAO.findAll();
     }
-
-    // HU-A5: Añadir método para encontrar pacientes activos
-    public List<Paciente> findActivePacientes() {
+    public List<Paciente> findActivePacientes(){
         return pacienteDAO.findByActivoTrue();
+     }
+    public Paciente buscarPorId(Long id) {
+        return pacienteDAO.findById(id).orElse(null);
     }
 
     // HU-P1: Método para obtener el "Home" de un paciente
@@ -99,4 +98,5 @@ public class PacienteService {
             throw new RuntimeException("Paciente no encontrado");
         }
     }
+}
 }

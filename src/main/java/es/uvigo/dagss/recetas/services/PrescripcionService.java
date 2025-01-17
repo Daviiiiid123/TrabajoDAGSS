@@ -48,6 +48,9 @@ public class PrescripcionService {
     public Prescripcion buscarActiva() {
         return prescripcionDAO.findByActivaTrue();
     }
+    public Prescripcion buscarPorId(long id){
+        return prescripcionDAO.findById(id).orElse(null);
+    }
 
     public List<Prescripcion> listarTodas() {
         return prescripcionDAO.findAll();

@@ -3,6 +3,7 @@ package es.uvigo.dagss.recetas.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
 import es.uvigo.dagss.recetas.entidades.Paciente;
@@ -19,6 +21,8 @@ import es.uvigo.dagss.recetas.entidades.Receta;
 import es.uvigo.dagss.recetas.services.CitaService;
 import es.uvigo.dagss.recetas.services.PacienteService;
 import es.uvigo.dagss.recetas.services.RecetaService;
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping(path = "/api/paciente", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,6 +50,7 @@ public class PacienteController {
         // Lógica para actualizar un paciente
         paciente.setId(id);
         this.pacienteService.updatePaciente(paciente);
+
     }
 
     @DeleteMapping(path = "/{id}")
@@ -71,6 +76,7 @@ public class PacienteController {
     public List<Paciente> buscarPacientesActivos() {
         return this.pacienteService.findActivePacientes();
     }
+
 
     // HU-P1: Endpoint para obtener el "Home" de un paciente
     @GetMapping(path = "/home/{id}", consumes = MediaType.ALL_VALUE)

@@ -3,12 +3,14 @@ package es.uvigo.dagss.recetas.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.services.MedicoService;
@@ -34,11 +36,16 @@ public class MedicoController {
         this.medicoService.eliminarMedico(id);
     }
 
-    @PutMapping(path = "/{id}", consumes = "application/json")
-    public void actualizarMedico(Long id, Medico medico) {
+    @PutMapping
+    public void actualizarMedico( Medico medico) {
         // Lógica para actualizar un médico
-        medico.setId(id);
-        this.medicoService.actualizarMedico(medico);
+        if( this.medicoService.buscarPorId(medico.getId()) != null){
+            this.medicoService.actualizarMedico(medico);
+        }else{
+            throw new ResponseStatusException(
+              HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }
     }
 
     @GetMapping(path = "/{id}")

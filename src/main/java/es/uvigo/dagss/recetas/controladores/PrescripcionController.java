@@ -35,16 +35,14 @@ public class PrescripcionController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public Prescripcion crear(@RequestBody Prescripcion prescripcion) {
         return prescripcionService.crear(prescripcion);
     }
 
-    @PutMapping("/{id}")
-    public Prescripcion actualizar(@PathVariable Long id, @RequestBody Prescripcion prescripcion) {
-        Prescripcion prescripcionActualizada = prescripcionService.actualizar(id, prescripcion);
-        if (prescripcionActualizada != null) {
-            return prescripcionActualizada;
+    @PutMapping
+    public Prescripcion actualizar(@RequestBody Prescripcion prescripcion) {
+        if( this.prescripcionService.buscarPorId(prescripcion.getId()) != null){
+            return this.prescripcionService.actualizar(prescripcion);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Prescripción no encontrada");
         }
