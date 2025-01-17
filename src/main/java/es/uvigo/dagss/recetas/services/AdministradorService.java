@@ -20,8 +20,11 @@ public class AdministradorService {
         administradorDAO.save(administrador);
     }
 
+    // Cambiado para establecer activo a false en lugar de eliminar la entidad
+    // HU-A2: Eliminación lógica estableciendo activo a false
     public void eliminarAdministrador(Administrador administrador) {
-        administradorDAO.delete(administrador);
+        administrador.setActivo(false);
+        administradorDAO.save(administrador);
     }
 
     public void actualizarAdministrador(Administrador administrador) {
@@ -35,6 +38,4 @@ public class AdministradorService {
     public Administrador buscarPorId(Long id) {
         return administradorDAO.findById(id).orElse(null);
     }
-
-
 }

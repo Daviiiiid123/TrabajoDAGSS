@@ -3,13 +3,17 @@ package es.uvigo.dagss.recetas.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
 import es.uvigo.dagss.recetas.entidades.Medico;
@@ -35,10 +39,16 @@ public class CitaController {
         this.citaService.crear(cita);
     }
 
-    @PostMapping(path = "/{id}", consumes = "application/json")
-    public void actualizarCita(@RequestBody @Valid Cita cita) {
+    @PutMapping
+        public void actualizarCita(@RequestBody @Valid Cita cita) {
         // Lógica para actualizar una cita
-      
+        if( this.citaService.buscarPorId(cita.getId()) != null ){
+            this.citaService.actualizar(cita);
+        }else{
+            throw new ResponseStatusException(
+              HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }
     }
 
     @DeleteMapping(path = "/{id}")
@@ -64,5 +74,10 @@ public class CitaController {
         return this.citaService.buscarPorMedico(this.medicoService.buscarPorId(id));
     }
 
+    // HU-A7: Añadir endpoint para anular citas
+    @PutMapping(path = "/anular/{id}")
+    public void anularCita(@PathVariable Long id) {
+        this.citaService.anularCita(id);
+    }
 
 }

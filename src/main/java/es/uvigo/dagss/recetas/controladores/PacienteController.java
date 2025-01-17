@@ -1,19 +1,22 @@
 package es.uvigo.dagss.recetas.controladores;
 
-import org.springframework.http.MediaType;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.uvigo.dagss.recetas.entidades.Paciente;
 import es.uvigo.dagss.recetas.services.PacienteService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/api/paciente", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -30,11 +33,16 @@ public class PacienteController {
         this.pacienteService.createPaciente(paciente);
     }
 
-    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void actualizarPaciente(Long id, Paciente paciente) {
-        // Lógica para actualizar un paciente
-        paciente.setId(id);
-        this.pacienteService.updatePaciente(paciente);
+    @PutMapping
+    public void actualizarPaciente(@RequestBody @Valid Paciente paciente) {
+        // Lógica para actualizar una paciente
+        if( this.pacienteService.buscarPorId(paciente.getId()) != null ){
+            this.pacienteService.updatePaciente(paciente);
+        }else{
+            throw new ResponseStatusException(
+              HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }
     }
 
     @DeleteMapping(path = "/{id}")
@@ -55,9 +63,9 @@ public class PacienteController {
         return this.pacienteService.findAllPacientes();
     }
 
-   
-
-
-
-
+    // HU-A5: Añadir endpoint para obtener pacientes activos
+    @GetMapping(path = "/activos", consumes = MediaType.ALL_VALUE)
+    public List<Paciente> buscarPacientesActivos() {
+        return this.pacienteService.findActivePacientes();
+    }
 }

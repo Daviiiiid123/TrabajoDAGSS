@@ -2,7 +2,6 @@ package es.uvigo.dagss.recetas.entidades;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -23,6 +22,9 @@ public class Paciente extends Usuario {
 
     private String nombre;
 
+    // HU-A5: Add 'activo' attribute for logical deletion
+    private Boolean activo = true;
+
     @ManyToOne(targetEntity = CentroSalud.class)
     private CentroSalud centroSalud;
    
@@ -31,6 +33,7 @@ public class Paciente extends Usuario {
         super(TipoUsuario.PACIENTE);        
     }
 
+    // HU-A5: Update constructor to initialize 'activo' attribute
     public Paciente(String login, String password, String telefono, String DNI, String direccion, String NSS, String email, String nombre) {
         super(TipoUsuario.PACIENTE, login, password);
         this.telefono = telefono;
@@ -39,6 +42,7 @@ public class Paciente extends Usuario {
         this.NSS = NSS;
         this.email = email;
         this.nombre = nombre;
+        this.activo = true;
     }
 
     public String getTelefono() {
@@ -99,6 +103,14 @@ public class Paciente extends Usuario {
         }
     }
 
+    // HU-A5: Add getter and setter for 'activo' attribute
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
 
     private boolean validarTelefono(String telefono){
         boolean valido = false;

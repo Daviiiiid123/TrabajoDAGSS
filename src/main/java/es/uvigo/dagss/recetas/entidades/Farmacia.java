@@ -1,6 +1,5 @@
 package es.uvigo.dagss.recetas.entidades;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,11 +32,14 @@ public class Farmacia extends Usuario {
 
     private String numeroColegiado;
 
+    // HU-A6: Añadir atributo 'activo' para eliminación lógica
+    private Boolean activo = true;
 
     public Farmacia() {
         super(TipoUsuario.FARMACIA);
     }
 
+    // HU-A6: Actualizar constructor para inicializar el atributo 'activo'
     public Farmacia(String login, String password, String nombre, String direccion, String telefono, String email, String nombreFarmaceutico, String apellidosFarmaceutico, String DNI, String numeroColegiado) {
         super(TipoUsuario.FARMACIA, login, password);
         this.nombre = nombre;
@@ -48,6 +50,7 @@ public class Farmacia extends Usuario {
         this.apellidosFarmaceutico = apellidosFarmaceutico;
         this.DNI = DNI;
         this.numeroColegiado = numeroColegiado;
+        this.activo = true;
     }
 
     
@@ -169,10 +172,19 @@ public class Farmacia extends Usuario {
         this.numeroColegiado = numeroColegiado;
     }
 
+    // HU-A6: Añadir getter y setter para el atributo 'activo'
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
     //toString
     @Override
     public String toString() {
-        return "Farmacia{" + "id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", nombreFarmaceutico=" + nombreFarmaceutico + ", apellidosFarmaceutico=" + apellidosFarmaceutico + ", DNI=" + DNI + ", numeroColegiado=" + numeroColegiado + '}';
+        return "Farmacia{" + "id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", nombreFarmaceutico=" + nombreFarmaceutico + ", apellidosFarmaceutico=" + apellidosFarmaceutico + ", DNI=" + DNI + ", numeroColegiado=" + numeroColegiado + ", activo=" + activo + '}';
     }
 
     //Equals y HashCode
