@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
+import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.services.CitaService;
+import es.uvigo.dagss.recetas.services.MedicoService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -25,6 +27,8 @@ public class CitaController {
 
     @Autowired
     private CitaService citaService;
+    @Autowired
+    private MedicoService medicoService;
     
     public CitaController() {
     }
@@ -63,6 +67,11 @@ public class CitaController {
     public List<Cita> buscarTodos() {
         // Lógica para buscar todas las citas
         return this.citaService.listarTodas();
+    }
+    
+    @GetMapping(path = "/medico/{id}")
+    public List<Cita> buscarPorIdMedico(@PathVariable Long id){
+        return this.citaService.buscarPorMedico(this.medicoService.buscarPorId(id));
     }
 
     // HU-A7: Añadir endpoint para anular citas
