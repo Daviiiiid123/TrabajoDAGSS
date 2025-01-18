@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/receta")
+@RequestMapping("/api/recetas")
 public class RecetaController {
 
     @Autowired

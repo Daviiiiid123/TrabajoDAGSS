@@ -5,15 +5,18 @@ import es.uvigo.dagss.recetas.entidades.Prescripcion;
 import es.uvigo.dagss.recetas.services.PrescripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 
 
 @RestController
-@RequestMapping("/api/prescripcion")
+@RequestMapping("/api/prescripciones")
 public class PrescripcionController {
 
     @Autowired
@@ -35,8 +38,12 @@ public class PrescripcionController {
     }
 
     @PostMapping
-    public Prescripcion crear(@RequestBody Prescripcion prescripcion) {
-        return prescripcionService.crear(prescripcion);
+    public URI crear(@RequestBody Prescripcion prescripcion) {
+        prescripcionService.crear(prescripcion);
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(prescripcion.getId())
+            .toUri();
     }
 
     @PutMapping

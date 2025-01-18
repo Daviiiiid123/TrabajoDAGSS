@@ -1,5 +1,6 @@
 package es.uvigo.dagss.recetas.controladores;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.uvigo.dagss.recetas.entidades.Farmacia;
 import es.uvigo.dagss.recetas.entidades.Receta;
@@ -22,7 +24,7 @@ import es.uvigo.dagss.recetas.services.RecetaService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/api/farmacia", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/farmacias", produces = MediaType.APPLICATION_JSON_VALUE)
 
 public class FarmaciaController {
 
@@ -35,10 +37,14 @@ public class FarmaciaController {
     public FarmaciaController() {
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void crearFarmacia(@RequestBody @Valid Farmacia farmacia) {
+    @PostMapping
+    public URI crearFarmacia(@RequestBody @Valid Farmacia farmacia) {
         // Lógica para crear una farmacia
         this.farmaciaService.crearFarmacia(farmacia);
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(farmacia.getId())
+            .toUri();
     }
 
     @PutMapping
@@ -60,7 +66,7 @@ public class FarmaciaController {
 
     }
 
-    @GetMapping(path = "/lista", consumes = MediaType.ALL_VALUE)
+    @GetMapping(path = "/lista")
     public List<Farmacia> buscarTodos() {
         // Lógica para buscar todas las farmacias
         return farmaciaService.buscarTodos();
@@ -97,7 +103,7 @@ public class FarmaciaController {
     }
 
     // HU-A6: Añadir endpoint para obtener farmacias activas
-    @GetMapping(path = "/activos", consumes = MediaType.ALL_VALUE)
+    @GetMapping(path = "/activos")
     public List<Farmacia> buscarFarmaciasActivas() {
         return this.farmaciaService.findActiveFarmacias();
     }

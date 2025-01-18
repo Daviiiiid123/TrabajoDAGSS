@@ -1,5 +1,6 @@
 package es.uvigo.dagss.recetas.controladores;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
 import es.uvigo.dagss.recetas.entidades.Medico;
@@ -22,7 +24,7 @@ import es.uvigo.dagss.recetas.services.MedicoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/api/cita", produces = "application/json")
+@RequestMapping(path = "/api/citas", produces = "application/json")
 public class CitaController {
 
     @Autowired
@@ -34,9 +36,13 @@ public class CitaController {
     }
 
     @PostMapping(consumes = "application/json")
-    public void crearCita(@RequestBody @Valid Cita cita) {
+    public URI crearCita(@RequestBody @Valid Cita cita) {
         // Lógica para crear una cita
         this.citaService.crear(cita);
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(cita.getId())
+            .toUri();
     }
 
     @PutMapping

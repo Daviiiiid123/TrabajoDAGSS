@@ -18,6 +18,7 @@ public class AdministradorService {
 
     public void crearAdministrador(Administrador administrador) {
         administradorDAO.save(administrador);
+        
     }
 
     // Cambiado para establecer activo a false en lugar de eliminar la entidad

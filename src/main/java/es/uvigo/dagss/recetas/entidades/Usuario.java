@@ -18,6 +18,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.TableGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Una tabla propia para cada subclase
@@ -36,15 +37,20 @@ public abstract class Usuario implements Serializable {
     @Column(name = "TIPO_USUARIO", length = 20)
     protected TipoUsuario tipo;
 
+	@NotNull
     private String login;
+	@NotNull
     private String password;
 
+	@NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAlta;
 
+	@NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimoAcceso;
 
+	@NotNull
 	private Boolean activo = true;
 	
     public Usuario() {

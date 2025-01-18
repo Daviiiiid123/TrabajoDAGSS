@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.TableGenerator;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @DiscriminatorValue(value = "ADMINISTRADOR")
@@ -19,6 +20,7 @@ public class Administrador extends Usuario {
     private String nombre;
 
     private String email;
+
 
     public Administrador() {
         super(TipoUsuario.ADMINISTRADOR);
@@ -57,6 +59,7 @@ public class Administrador extends Usuario {
         }
         return valido;
     }
+
 
     //Metodo hashCode
     @Override

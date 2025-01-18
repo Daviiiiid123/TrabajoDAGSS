@@ -1,5 +1,6 @@
 package es.uvigo.dagss.recetas.controladores;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.services.MedicoService;
 
 @RestController
-@RequestMapping(path = "/api/medico", produces = "application/json")
+@RequestMapping(path = "/api/medicos", produces = "application/json")
 public class MedicoController {
 
     @Autowired
@@ -24,10 +26,14 @@ public class MedicoController {
     
     public MedicoController() {
     }
-    @PostMapping(consumes = "application/json")
-    public void crearMedico(Medico medico) {
+    @PostMapping
+    public URI crearMedico(Medico medico) {
         // Lógica para crear un médico
         this.medicoService.crearMedico(medico);
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(medico.getId())
+            .toUri();
     }
 
     @DeleteMapping(path = "/{id}")

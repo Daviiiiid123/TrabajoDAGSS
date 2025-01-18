@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.uvigo.dagss.recetas.entidades.CentroSalud;
 import es.uvigo.dagss.recetas.services.CentroSaludService;
 import jakarta.validation.Valid;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +26,20 @@ import org.springframework.http.MediaType;
 
 
 @RestController
-@RequestMapping(path = "/api/centrosalud", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/centrosdesalud", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CentroSaludController {
 
     @Autowired
     private CentroSaludService centroSaludService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void crearCentroSalud(@RequestBody @Valid CentroSalud centroSalud) {
+    public URI crearCentroSalud(@RequestBody @Valid CentroSalud centroSalud) {
         // Lógica para crear un centro de salud
         this.centroSaludService.crearCentroSalud(centroSalud);
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(centroSalud.getId())
+            .toUri();
     }
 
     @PutMapping
