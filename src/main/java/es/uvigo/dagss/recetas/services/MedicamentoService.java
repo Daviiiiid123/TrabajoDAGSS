@@ -41,18 +41,22 @@ public class MedicamentoService {
         return medicamentoDAO.findById(id).orElse(null);
     }
 
+    // Busca medicamentos por nombre comercial
     public List<Medicamento> buscarPorNombreComercial(String nombreComercial) {
         return medicamentoDAO.findByNombreComercialContaining(nombreComercial);
     }
 
+    // Busca medicamentos por principio activo
     public List<Medicamento> buscarPorPrincipioActivo(String principioActivo) {
         return medicamentoDAO.findByPrincipioActivoContaining(principioActivo);
     }
 
+    // Busca medicamentos por fabricante
     public List<Medicamento> buscarPorFabricante(String fabricante) {
         return medicamentoDAO.findByFabricanteContaining(fabricante);
     }
 
+    // Busca medicamentos por familia
     public List<Medicamento> buscarPorFamilia(String familia) {
         return medicamentoDAO.findByFamiliaContaining(familia);
     }

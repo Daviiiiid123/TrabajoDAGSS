@@ -62,4 +62,28 @@ public class MedicamentoController {
     public List<Medicamento> buscarMedicamentosActivos() {
         return medicamentoService.buscarActivos();
     }
+
+    // Endpoint para buscar medicamentos por nombre comercial
+    @GetMapping(path = "/buscarPorNombreComercial/{nombreComercial}")
+    public List<Medicamento> buscarPorNombreComercial(@PathVariable String nombreComercial) {
+        return medicamentoService.buscarPorNombreComercial(nombreComercial);
+    }
+
+    // Endpoint para buscar medicamentos por principio activo
+    @GetMapping(path = "/buscarPorPrincipioActivo/{principioActivo}")
+    public List<Medicamento> buscarPorPrincipioActivo(@PathVariable String principioActivo) {
+        return medicamentoService.buscarPorPrincipioActivo(principioActivo);
+    }
+
+    // Endpoint para buscar medicamentos por fabricante
+    @GetMapping(path = "/buscarPorFabricante/{fabricante}")
+    public List<Medicamento> buscarPorFabricante(@PathVariable String fabricante) {
+        return medicamentoService.buscarPorFabricante(fabricante);
+    }
+
+    // Endpoint para buscar medicamentos por familia
+    @GetMapping(path = "/buscarPorFamilia/{familia}")
+    public List<Medicamento> buscarPorFamilia(@PathVariable String familia) {
+        return medicamentoService.buscarPorFamilia(familia);
+    }
 }
