@@ -50,6 +50,15 @@ public class Receta {
         this.farmaciaServidora = null;
     }
 
+    public Receta(Prescripcion prescripcion, Date fechaInicio, Date fechaFin, int cantidad, Estado estado, Farmacia farmaciaServidora) {
+        this.prescripcion = prescripcion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.cantidad = cantidad;
+        this.estado = estado;
+        this.farmaciaServidora = farmaciaServidora;
+    }
+
     public Prescripcion getPrescripcion() {
         return prescripcion;
     }
