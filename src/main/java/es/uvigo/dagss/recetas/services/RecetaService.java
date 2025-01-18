@@ -1,5 +1,8 @@
 package es.uvigo.dagss.recetas.services;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +14,7 @@ import es.uvigo.dagss.recetas.daos.RecetaDAO;
 import es.uvigo.dagss.recetas.entidades.EstadoCita;
 import es.uvigo.dagss.recetas.entidades.Farmacia;
 import es.uvigo.dagss.recetas.entidades.Paciente;
+import es.uvigo.dagss.recetas.entidades.Prescripcion;
 import es.uvigo.dagss.recetas.entidades.Receta;
 
 @Service
@@ -51,14 +55,14 @@ public class RecetaService {
     }
 
     // HU-P4: Método para obtener las recetas pendientes de un paciente
-    /*public List<Receta> getRecetasPendientes(Paciente paciente) {
+    public List<Receta> getRecetasPendientes(Paciente paciente) {
         return recetaDAO.findByPacienteAndEstado(paciente, Receta.Estado.PLANIFICADA);
     }
 
     // HU-F2: Método para obtener las recetas planificadas de un paciente
     public List<Receta> getRecetasPlanificadas(Long pacienteId) {
         return recetaDAO.findByPacienteAndEstado(pacienteId, Receta.Estado.PLANIFICADA);
-    }*/
+    }
 
     // HU-F3: Método para anotar una receta como servida
     public Receta anotarRecetaServida(Long recetaId, Long farmaciaId) {
@@ -75,6 +79,34 @@ public class RecetaService {
         } else {
             throw new RuntimeException("Receta no encontrada");
         }
+    }
+
+    public List<Receta> generarPlanRecetas(Prescripcion prescripcion) {
+        List<Receta> planRecetas = new ArrayList<>();
+        int dosisDiaria = prescripcion.getDosis();
+        int dosisPorEnvase = prescripcion.getMedicamento().getDosis();
+        // totalDias se calcula en base a la diferencia de tiempo entre la fecha de inicio y la fecha de fin y se divide por el número de milisegundos que tiene un día
+        int totalDias = (int) ((prescripcion.getFechaFin().getTime() - prescripcion.getFechaInicio().getTime()) / 86400000);
+        int totalEnvases = (int) Math.ceil((double) (dosisDiaria * totalDias) / dosisPorEnvase);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(prescripcion.getFechaInicio());
+
+        for (int i = 0; i < totalEnvases; i++) {
+            Date fechaInicio = calendar.getTime();
+            calendar.add(Calendar.DAY_OF_MONTH, dosisPorEnvase / dosisDiaria);
+            Date fechaFin = calendar.getTime();
+
+            Receta receta = new Receta(prescripcion, fechaInicio, fechaFin, 1, Receta.Estado.PLANIFICADA);
+            planRecetas.add(receta);
+            recetaDAO.save(receta);
+        }
+
+        return planRecetas;
+    }
+
+    public List<Receta> getRecetasPorPrescripcion(Long prescripcionId) {
+        return recetaDAO.findByPrescripcionId(prescripcionId);
     }
 
 }
