@@ -110,11 +110,11 @@ public class PacienteController {
     }
 
     // HU-P4: Endpoint para obtener las recetas pendientes de un paciente
-    @GetMapping(path = "/{id}/recetas", consumes = MediaType.ALL_VALUE)
+    /*@GetMapping(path = "/{id}/recetas", consumes = MediaType.ALL_VALUE)
     public List<Receta> obtenerRecetasPendientes(@PathVariable Long id) {
         Paciente paciente = this.pacienteService.findPacienteById(id).get();
         return this.recetaService.getRecetasPendientes(paciente);
-    }
+    }*/
 
     // HU-P5: Endpoint para modificar las credenciales de acceso de un paciente
     @PutMapping(path = "/{id}/credenciales", consumes = MediaType.APPLICATION_JSON_VALUE)

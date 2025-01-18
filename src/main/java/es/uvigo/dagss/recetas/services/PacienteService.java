@@ -66,7 +66,7 @@ public class PacienteService {
     public List<Cita> getCitasPlanificadas(Long pacienteId) {
         Optional<Paciente> paciente = pacienteDAO.findById(pacienteId);
         if (paciente.isPresent()) {
-            return citaDAO.findByPacienteAndEstado(paciente.get(), "PLANIFICADA");
+            return citaDAO.findByPacienteCitadoAndEstadoCita(paciente.get(), "PLANIFICADA");
         } else {
             throw new RuntimeException("Paciente no encontrado");
         }

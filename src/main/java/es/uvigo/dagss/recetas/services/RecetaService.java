@@ -51,14 +51,14 @@ public class RecetaService {
     }
 
     // HU-P4: Método para obtener las recetas pendientes de un paciente
-    public List<Receta> getRecetasPendientes(Paciente paciente) {
+    /*public List<Receta> getRecetasPendientes(Paciente paciente) {
         return recetaDAO.findByPacienteAndEstado(paciente, Receta.Estado.PLANIFICADA);
     }
 
     // HU-F2: Método para obtener las recetas planificadas de un paciente
     public List<Receta> getRecetasPlanificadas(Long pacienteId) {
         return recetaDAO.findByPacienteAndEstado(pacienteId, Receta.Estado.PLANIFICADA);
-    }
+    }*/
 
     // HU-F3: Método para anotar una receta como servida
     public Receta anotarRecetaServida(Long recetaId, Long farmaciaId) {

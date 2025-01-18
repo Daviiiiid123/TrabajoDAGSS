@@ -54,7 +54,7 @@ public class CitaService {
     }
     
     public List<Cita> buscarPorMedico(Medico medico){
-        return citaDAO.findByMedico(medico);
+        return citaDAO.findByMedicoAtiende(medico);
     }
 
 

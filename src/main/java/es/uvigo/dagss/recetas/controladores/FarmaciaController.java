@@ -114,11 +114,12 @@ public class FarmaciaController {
         return this.farmaciaService.getFarmaciaHome(id);
     }
 
-    // HU-F2: Endpoint para obtener las recetas planificadas de un paciente
-    @GetMapping(path = "/recetas/{pacienteId}", consumes = MediaType.ALL_VALUE)
+    // HU-F2: Endpoint para obtener las recetas planificadas de un paciente.
+    // ESTO NO VA AQUÍ
+    /*@GetMapping(path = "/recetas/{pacienteId}", consumes = MediaType.ALL_VALUE)
     public List<Receta> obtenerRecetasPlanificadas(@PathVariable Long pacienteId) {
         return this.recetaService.getRecetasPlanificadas(pacienteId);
-    }
+    }*/
 
     // HU-F3: Endpoint para anotar una receta como servida
     @PutMapping(path = "/recetas/servir/{recetaId}/{farmaciaId}", consumes = MediaType.ALL_VALUE)
