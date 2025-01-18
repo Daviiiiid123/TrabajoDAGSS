@@ -18,10 +18,12 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
-import es.uvigo.dagss.recetas.entidades.Medico;
+import es.uvigo.dagss.recetas.entidades.EstadoCita;
+import es.uvigo.dagss.recetas.entidades.Paciente;
 import es.uvigo.dagss.recetas.services.CitaService;
 import es.uvigo.dagss.recetas.services.MedicoService;
 import jakarta.validation.Valid;
+import jdk.jfr.BooleanFlag;
 
 @RestController
 @RequestMapping(path = "/api/citas", produces = "application/json")
@@ -68,7 +70,13 @@ public class CitaController {
         // Lógica para buscar una cita por su ID
         this.citaService.buscarPorId(id);
     }
+    
+    @GetMapping("/PacientePlanificadas")
+    public List<Cita> buscarPorPacientePlanificadas(@RequestBody Paciente paciente){
+        return this.citaService.buscarPorPacienteYEstado(paciente,EstadoCita.PLANIFICADA);
+    }
 
+    
     @GetMapping(path = "/lista")
     public List<Cita> buscarTodos() {
         // Lógica para buscar todas las citas
