@@ -45,13 +45,20 @@ public class MedicoController {
     @PutMapping
     public void actualizarMedico( Medico medico) {
         // Lógica para actualizar un médico
-        if( this.medicoService.buscarPorId(medico.getId()) != null){
-            this.medicoService.actualizarMedico(medico);
-        }else{
+        
+        Medico antiguo = this.medicoService.buscarPorId(medico.getId());
+        
+        if( antiguo == null ){
             throw new ResponseStatusException(
               HttpStatus.NOT_FOUND, "entity not found"
             );
         }
+        if (medico.getCentroSalud() != antiguo.getCentroSalud()){
+            throw new ResponseStatusException(
+              HttpStatus.FORBIDDEN, "No se puede modificar centro de salud"
+            );
+        }
+        this.medicoService.actualizarMedico(medico);
     }
 
     @GetMapping(path = "/{id}")
