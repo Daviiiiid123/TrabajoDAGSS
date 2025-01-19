@@ -1,7 +1,6 @@
 package es.uvigo.dagss.recetas.controladores;
 
 import java.net.URI;
-import es.uvigo.dagss.recetas.entidades.Medico;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +21,14 @@ import es.uvigo.dagss.recetas.entidades.Cita;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 import es.uvigo.dagss.recetas.entidades.Receta;
 import es.uvigo.dagss.recetas.services.CitaService;
-import es.uvigo.dagss.recetas.services.HuecoCitaService;
 import es.uvigo.dagss.recetas.services.PacienteService;
 import es.uvigo.dagss.recetas.services.RecetaService;
 import jakarta.validation.Valid;
-import java.util.Calendar;
-import java.util.Date;
 
 
 @RestController
 @RequestMapping(path = "/api/pacientes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PacienteController {
-
     @Autowired
     private PacienteService pacienteService;
 
@@ -42,7 +37,6 @@ public class PacienteController {
 
     @Autowired
     private RecetaService recetaService;
-    private HuecoCitaService HuecoCitaService;
 
     public PacienteController() {
     }
@@ -58,15 +52,12 @@ public class PacienteController {
             .toUri();
     }
 
-    public void actualizarPaciente(@RequestBody @Valid Paciente paciente) {
-        // Lógica para actualizar una paciente
-        if (this.pacienteService.buscarPorId(paciente.getId()) != null) {
-            this.pacienteService.updatePaciente(paciente);
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
-            );
-        }
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void actualizarPaciente(@PathVariable Long id, @RequestBody Paciente paciente) {
+        // Lógica para actualizar un paciente
+        paciente.setId(id);
+        this.pacienteService.updatePaciente(paciente);
+
     }
 
     @DeleteMapping(path = "/{id}")
@@ -135,35 +126,5 @@ public class PacienteController {
     @PutMapping(path = "/{id}/datos", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Paciente actualizarDatosBasicos(@PathVariable Long id, @RequestBody Paciente nuevosDatos) {
         return this.pacienteService.actualizarDatosBasicos(id, nuevosDatos);
-    }
-    
-    @GetMapping(path = "/citasDisponibles")
-    public boolean[] getCitasDisponibles(@RequestBody Medico medico, Date dia) {
-        return this.HuecoCitaService.HuecosDisponiblesPorMedicoYDia(medico, dia);
-    }
-
-    public String[] getCitasDisponiblesString(@RequestBody Medico medico, Date dia) {
-        boolean[] huecosBool = this.HuecoCitaService.HuecosDisponiblesPorMedicoYDia(medico, dia);
-        String[] huecosStr = new String[huecosBool.length];
-
-        Calendar inicio = Calendar.getInstance();
-        inicio.setTime(dia);
-        inicio.set(Calendar.HOUR, 8);
-        inicio.set(Calendar.MINUTE, 30);
-
-        Calendar fin = (Calendar) inicio.clone();
-        fin.set(Calendar.MINUTE, 45);
-
-        for (int i = 0; i < huecosStr.length; i++) {
-            if (huecosBool[i]) {
-                huecosStr[i] = inicio.toString() + " - " + fin.toString();
-            } else {
-                huecosStr[i] = "";
-            }
-            inicio.add(Calendar.MINUTE, 15);
-            fin.add(Calendar.MINUTE, 15);
-
-        }
-        return huecosStr;
     }
 }
