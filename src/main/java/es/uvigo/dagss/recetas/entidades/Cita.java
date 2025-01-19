@@ -17,7 +17,11 @@ import jakarta.persistence.TemporalType;
 @Entity
 public class Cita implements Serializable {
 //Identificador unico de la cita
-
+    public static final int MINUTOS_APERTURA = 8*60+30;
+    public static final int MINUTOS_CIERRE = 15*60+30; 
+    public static final int MINUTOS_HUECO = 15;
+    public static final int NUMERO_HUECOS = (MINUTOS_CIERRE - MINUTOS_APERTURA) / MINUTOS_HUECO;
+    
     @Id
 
 //Generador de tabla para la generacion de claves primarias

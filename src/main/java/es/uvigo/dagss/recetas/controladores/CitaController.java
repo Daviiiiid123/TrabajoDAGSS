@@ -22,6 +22,7 @@ import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.services.CitaService;
 import es.uvigo.dagss.recetas.services.MedicoService;
 import jakarta.validation.Valid;
+import java.util.Date;
 
 @RestController
 @RequestMapping(path = "/api/citas", produces = "application/json")
@@ -85,5 +86,9 @@ public class CitaController {
     public void anularCita(@PathVariable Long id) {
         this.citaService.anularCita(id);
     }
-
+    
+    @GetMapping(path = "/citas_disponibles")
+    public List<String> citasDisponibles(@RequestBody Medico medico, @RequestBody Date dia){
+        return citaService.HuecosVaciosMedicoEnDia(medico, dia);
+    }
 }
