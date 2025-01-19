@@ -10,11 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.TableGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class Cita implements Serializable {
@@ -33,16 +31,19 @@ public class Cita implements Serializable {
     @ManyToOne //Una cita tiene un unico paciente
     private Paciente pacienteCitado;
 
+    //Medico que atiende
+    @ManyToOne //Una cita tiene un unico medico
+    private Medico medicoAtiende;
+
     //Fecha y hora de la cita
-    @OneToOne
-    private HuecoCita huecoCita;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaHora;
 
     //estado (PLANIFICADA, ANULADA, COMPLETADA, AUSENTE)
     @Enumerated(EnumType.STRING)
     private EstadoCita estadoCita;
 
     //Duracion en minutos
-    @Value("15")
     private int duracion;
 
 //Constructor vacio porque es necesario para JPA
@@ -51,29 +52,24 @@ public class Cita implements Serializable {
 
     /*Constructor con parametros
 * @param pacienteCitado Paciente que tiene la cita
+* @param medicoAtiende Medico que atiende la cita
 * @param fechaHora Fecha y hora de la cita
 * @param estadoCita Estado de la cita
 * @param duracion Duracion de la cita en minutos
      */
-
-    public Cita(Long id, Paciente pacienteCitado, HuecoCita huecoCita, EstadoCita estadoCita, int duracion) {
-        this.id = id;
+    public Cita(Paciente pacienteCitado, Medico medicoAtiende, Date fechaHora, EstadoCita estadoCita, int duracion) {
         this.pacienteCitado = pacienteCitado;
-        this.huecoCita = huecoCita;
+        this.medicoAtiende = medicoAtiende;
+        this.fechaHora = fechaHora;
         this.estadoCita = estadoCita;
         this.duracion = duracion;
     }
- 
-    
+
 //Getters y Setters
     public Long getId() {
         return id;
     }
-    
-    public Date getFechaHora(){
-        return this.huecoCita.getFechaHora();
-    }
-    
+
     public Paciente getPacienteCitado() {
         return pacienteCitado;
     }
@@ -83,11 +79,19 @@ public class Cita implements Serializable {
     }
 
     public Medico getMedicoAtiende() {
-        return this.huecoCita.getMedico();
+        return medicoAtiende;
     }
 
     public void setMedicoAtiende(Medico medicoAtiende) {
-        this.huecoCita.setMedico(medicoAtiende);
+        this.medicoAtiende = medicoAtiende;
+    }
+
+    public Date getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(Date fechaHora) {
+        this.fechaHora = fechaHora;
     }
 
     public EstadoCita getEstadoCita() {
@@ -108,7 +112,7 @@ public class Cita implements Serializable {
 
     @Override
     public String toString() {
-        return "Cita{" + "id=" + id + ", pacienteCitado=" + pacienteCitado + ", medicoAtiende=" + this.huecoCita.getMedico() + ", fechaHora=" + this.getFechaHora() + ", estadoCita=" + estadoCita + ", duracion=" + duracion + '}';
+        return "Cita{" + "id=" + id + ", pacienteCitado=" + pacienteCitado + ", medicoAtiende=" + medicoAtiende + ", fechaHora=" + fechaHora + ", estadoCita=" + estadoCita + ", duracion=" + duracion + '}';
     }
 
     //Metodos Historias de Usuario
