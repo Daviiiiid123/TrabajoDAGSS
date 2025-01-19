@@ -13,6 +13,7 @@ import es.uvigo.dagss.recetas.daos.PacienteDAO;
 import es.uvigo.dagss.recetas.entidades.Cita;
 import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.entidades.EstadoCita;
+import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 
 @Service
@@ -55,9 +56,14 @@ public class CitaService {
     public List<Cita> buscarPorMedico(Medico medico){
         return citaDAO.findByMedicoAtiende(medico);
     }
-    public List<Cita> buscarPorPacienteYEstado(Paciente paciente, EstadoCita estado){
-        return this.citaDAO.findByPacienteAndEstadoCita(paciente, estado);
-    }
+
+
+
+
+    
+
+
+
     // HU-A7: Añadir método para anular citas
     public void anularCita(Long id) {
         Optional<Cita> cita = citaDAO.findById(id);
