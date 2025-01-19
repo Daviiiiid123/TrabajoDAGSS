@@ -14,10 +14,10 @@ public interface RecetaDAO extends JpaRepository<Receta, Long> {
     Receta findByFarmaciaServidora(Farmacia farmacia);
 
     // HU-P4: Método para encontrar recetas planificadas por paciente
-    List<Receta> findByPacienteAndEstado(Paciente paciente, Receta.Estado estado);
+    List<Receta> findByPrescripcion_PacienteAndEstado(Paciente paciente, Receta.Estado estado);
 
     // HU-F2: Método para encontrar recetas planificadas por paciente
-    List<Receta> findByPacienteAndEstado(Long pacienteId, Receta.Estado estado);
+    List<Receta> findByPrescripcion_PacienteIdAndEstado(Long pacienteId, Receta.Estado estado);
 
     List<Receta> findByPrescripcionId(Long prescripcionId);
 }
