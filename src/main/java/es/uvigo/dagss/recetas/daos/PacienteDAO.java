@@ -1,6 +1,5 @@
 package es.uvigo.dagss.recetas.daos;
 
-import es.uvigo.dagss.recetas.entidades.Cita;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
